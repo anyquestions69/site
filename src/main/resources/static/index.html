@@ -6,5 +6,30 @@
 </head>
 <body>
 <p th:text="Main page" />
+
+<div>
+    <canvas id="myChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const ctx = document.getElementById('myChart');
+    const cfg = {
+  type: 'line',
+  data: {
+    datasets: [{
+    label:"history",
+      data: [{x: "12/05/2016"},{y : 38000}, {x: "18/05/2017"}, {y : 67000}, {x:"19/06/2018"},{y : 99000}],
+      fill: false,
+    borderColor: 'rgb(75, 192, 192)',
+    }]
+
+  }
+}
+
+    new Chart(ctx, cfg);
+</script>
+
 </body>
 </html>
