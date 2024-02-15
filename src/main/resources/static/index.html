@@ -15,20 +15,47 @@
 
 <script>
     const ctx = document.getElementById('myChart');
-    const cfg = {
-  type: 'line',
-  data: {
-    datasets: [{
-    label:"history",
-      data: [{x: "12/05/2016"},{y : 38000}, {x: "18/05/2017"}, {y : 67000}, {x:"19/06/2018"},{y : 99000}],
-      fill: false,
-    borderColor: 'rgb(75, 192, 192)',
-    }]
-
-  }
-}
-
-    new Chart(ctx, cfg);
+    let history = {"12/05/2016" : 38000, "18/05/2017" : 67000, "19/06/2018": 99000, "20/01/2019":70000, "19/06/2020": 80000}
+    let data = []
+    let labels=[]
+    for(let h in history){
+      data.push(history[h]);
+      labels.push(h)
+    }
+   var myChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: labels,
+      datasets: [{
+        label: 'История пробега',
+        data:data,
+        borderWidth: 2,
+        pointRadius: function(context) {
+            const index = context.dataIndex;
+            const value = context.dataset.data[index];
+            return value <context.dataset.data[index-1] ? 5 :  3
+        },
+        borderColor:function(context) {
+            const index = context.dataIndex;
+            const value = context.dataset.data[index];
+            return value <context.dataset.data[index-1] ? 'red' :  'green'
+        },
+        backgroundColor:function(context) {
+            const index = context.dataIndex;
+            const value = context.dataset.data[index];
+            return value <context.dataset.data[index-1] ? 'red' :  'green'
+        }
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+  myChart
 </script>
 
 </body>
